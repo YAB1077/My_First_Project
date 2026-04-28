@@ -1,46 +1,30 @@
 function openMenu() {
-  document.body.classList.add("menu--open");
+  document.body.classList += " menu--open";
 }
-
 function closeMenu() {
   document.body.classList.remove("menu--open");
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const plans = document.querySelectorAll(".plans .plan");
+  const socialLinks = document.querySelectorAll(".footer__social--link");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const plans = document.querySelectorAll(".plan[data-plan]");
-
-  const setActivePlan = (selectedPlan) => {
-    plans.forEach((plan) => {
-      plan.classList.toggle("is-active", plan === selectedPlan);
-    });
-  };
-
-  plans.forEach((plan) => {
-    plan.addEventListener("click", (event) => {
-      event.preventDefault();
-      setActivePlan(plan);
-    });
-
-    const button = plan.querySelector(".plan__btn");
-    if (button) {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        setActivePlan(plan);
+  plans.forEach(function (plan) {
+    plan.addEventListener("click", function () {
+      plans.forEach(function (item) {
+        item.classList.remove("plan--selected");
       });
-    }
 
-    plan.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        setActivePlan(plan);
-      }
+      this.classList.add("plan--selected");
     });
   });
-});
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 1024) {
-    closeMenu();
-  }
+  socialLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      socialLinks.forEach(function (item) {
+        item.classList.remove("is-active");
+      });
+
+      this.classList.add("is-active");
+    });
+  });
 });
